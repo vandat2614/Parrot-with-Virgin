@@ -4,6 +4,8 @@ from torch.nn import init
 from torchvision import transforms
 from PIL import Image
 from torchvision.utils import save_image
+import time
+from concurrent.futures import ThreadPoolExecutor
 
 def calc_mean_std(feat, eps=1e-5):
     # eps is a small value added to the variance to avoid divide-by-zero.
@@ -22,16 +24,6 @@ def mean_variance_norm(feat):
     return normalized_feat
 
 def init_net(net, init_type='normal', init_gain=0.02, gpu_ids=()):
-    """Initialize network weights.
-
-    Parameters:
-        net (network)   -- network to be initialized
-        init_type (str) -- the name of an initialization method: normal | xavier | kaiming | orthogonal
-        init_gain (float)    -- scaling factor for normal, xavier and orthogonal.
-
-    We use 'normal' in the original pix2pix and CycleGAN paper. But xavier and kaiming might
-    work better for some applications. Feel free to try yourself.
-    """
 
     def init_func(m):  # define the initialization function
         classname = m.__class__.__name__
@@ -94,6 +86,7 @@ class AdaAttN(nn.Module):
         # mean, std: b, c, h, w
         mean = mean.view(b, h, w, -1).permute(0, 3, 1, 2).contiguous()
         std = std.view(b, h, w, -1).permute(0, 3, 1, 2).contiguous()
+
         return std * mean_variance_norm(content) + mean
     
 class Transformer(nn.Module):
@@ -106,12 +99,24 @@ class Transformer(nn.Module):
         self.upsample5_1 = nn.Upsample(scale_factor=2, mode='nearest')
         self.merge_conv_pad = nn.ReflectionPad2d((1, 1, 1, 1))
         self.merge_conv = nn.Conv2d(in_planes, in_planes, (3, 3))
-
+    
     def forward(self, content4_1, style4_1, content5_1, style5_1,
                 content4_1_key, style4_1_key, content5_1_key, style5_1_key, seed=None):
-        return self.merge_conv(self.merge_conv_pad(
-            self.attn_adain_4_1(content4_1, style4_1, content4_1_key, style4_1_key, seed=seed) +
-            self.upsample5_1(self.attn_adain_5_1(content5_1, style5_1, content5_1_key, style5_1_key, seed=seed))))
+        
+        with ThreadPoolExecutor() as executor:
+            future_attn_adain_4_1 = executor.submit(
+                self.attn_adain_4_1, content4_1, style4_1, content4_1_key, style4_1_key, seed=seed
+            )
+
+            future_attn_adain_5_1 = executor.submit(
+                self.attn_adain_5_1, content5_1, style5_1, content5_1_key, style5_1_key, seed=seed
+            )
+            
+            attn_adain_4_1_result = future_attn_adain_4_1.result()
+            attn_adain_5_1_result = future_attn_adain_5_1.result()
+
+        combined_result = attn_adain_4_1_result + self.upsample5_1(attn_adain_5_1_result)
+        return self.merge_conv(self.merge_conv_pad(combined_result))
     
 class Decoder(nn.Module):
 
@@ -282,45 +287,60 @@ class AdaAttNModel:
             return mean_variance_norm(feats[last_layer_idx])
 
     def forward(self, content_img, style_img):
-        self.c_feats = self.encode_with_intermediate(content_img)
-        self.s_feats = self.encode_with_intermediate(style_img)
 
-        c_adain_feat_3 = self.net_adaattn_3(self.c_feats[2], self.s_feats[2], self.get_key(self.c_feats, 2, True),
-                                                   self.get_key(self.s_feats, 2, True), self.seed)
-        cs = self.net_transformer(self.c_feats[3], self.s_feats[3], self.c_feats[4], self.s_feats[4],
-                                  self.get_key(self.c_feats, 3, True),
-                                  self.get_key(self.s_feats, 3, True),
-                                  self.get_key(self.c_feats, 4, True),
-                                  self.get_key(self.s_feats, 4, True), self.seed)
-        self.cs = self.net_decoder(cs, c_adain_feat_3)       
-    
+        with ThreadPoolExecutor() as executor:
+            future_c_feats = executor.submit(self.encode_with_intermediate, content_img)
+            future_s_feats = executor.submit(self.encode_with_intermediate, style_img)
+
+            self.c_feats = future_c_feats.result()
+            self.s_feats = future_s_feats.result()
+
+        with ThreadPoolExecutor() as executor:
+            future_c_adain_feat_3 = executor.submit(
+                self.net_adaattn_3, 
+                self.c_feats[2], self.s_feats[2],
+                self.get_key(self.c_feats, 2, True), 
+                self.get_key(self.s_feats, 2, True),
+                self.seed
+            )
+            
+            future_cs = executor.submit(
+                self.net_transformer,
+                self.c_feats[3], self.s_feats[3],
+                self.c_feats[4], self.s_feats[4],
+                self.get_key(self.c_feats, 3, True),
+                self.get_key(self.s_feats, 3, True),
+                self.get_key(self.c_feats, 4, True),
+                self.get_key(self.s_feats, 4, True),
+                self.seed
+            )
+
+            c_adain_feat_3 = future_c_adain_feat_3.result()
+            cs = future_cs.result()
+
+        self.cs = self.net_decoder(cs, c_adain_feat_3)
         return self.cs
 
+
 def transfer(content_path, style_path, result_path):
+    start = time.time()
     model = AdaAttNModel()
+
+    content_img = Image.open(content_path).convert('RGB')
+    style_img = Image.open(style_path).convert('RGB')
 
     transformer = transforms.Compose([
         transforms.Resize((512, 512), interpolation=Image.BICUBIC),
         transforms.ToTensor()
     ])
-
-
-
-    content_img = Image.open(content_path)
-    style_img = Image.open(style_path)
-    if content_img.mode == 'RGBA':
-        content_img = content_img.convert('RGB')
-    if style_img.mode == 'RGBA':
-        style_img = style_img.convert('RGB')
-
-    origin_size = (content_img.size[1], content_img.size[0])
-    resize = transforms.Resize(origin_size)
+    # origin_size = (content_img.size[1], content_img.size[0])
+    # resize = transforms.Resize(origin_size)
 
     content_img = transformer(content_img)
     style_img = transformer(style_img)
 
-    print('='*100)
-    print(content_img.shape, style_img.shape)
     result = model.forward(content_img.unsqueeze(0), style_img.unsqueeze(0))[0]
 
-    save_image(resize(result), result_path)
+    print(f'Finish: {time.time() - start}')
+
+    save_image(result, result_path)
