@@ -45,7 +45,7 @@
   flex-direction: column;
   align-items: center;
 }
-.btn {
+.start_btn {
     margin-top: 20px;
     height: fit-content;
     width: fit-content;
@@ -61,6 +61,9 @@
     font-weight: 500;
   }
 
+  .start_btn:hover {
+    background-color: #000046;
+  }
 .title {
   font-size: 33px;
   margin-left: 30px;
@@ -128,6 +131,121 @@
 }
 
 .img_sample{
-
+  width: 100px;
+  height: 100px;
   border-radius: 10px;
+}
+
+.guide {
+  justify-content: center;
+  display: flex;
+  font-size: 33px;
+  margin-left: 30px;
+  text-decoration: none;
+  font-family:  Montserrat;
+  color: black;
+  font-weight: 750;
+  align-items: center;
+}
+
+/* Styling cho toàn bộ khung */
+.upload-container {
+  width: 400px;
+  height: 300px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: Montserrat, sans-serif;
+}
+
+/* Nút tải lên */
+.upload-button {
+  background-color: #0078FF;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 15px 32px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.upload-button:hover {
+  background-color: #005FCC;
+}
+
+/* Dòng hướng dẫn */
+.upload-text {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #6c757d;
+}
+
+/* Link trong phần hướng dẫn */
+.upload-text a {
+  color: #0078FF;
+  text-decoration: none;
+}
+
+.upload-text a:hover {
+  text-decoration: underline;
+}
+
+.upload_ {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 250px;
+}
+
+.content_style_format {
+  font-family: Montserrat;
+  font-weight: 600;
+}
+
+.image-gallery {
+  text-align: center;
+}
+
+.image-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.gallery-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.gallery-img:hover {
+  transform: scale(1.1); /* Phóng to nhẹ khi hover */
+}
+
+.hidden {
+  display: none; /* Ẩn hình ảnh khi chưa "See More" */
+}
+
+.see-more-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: transparent;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.see-more-btn:hover {
+  background-color: #0056b3;
 }
