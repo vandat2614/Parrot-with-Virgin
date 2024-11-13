@@ -6,17 +6,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
   </head>
   <body style="margin: 0;">
     <div class="global_flex">
       <nav class="nav">
         <div class="name_logo" style="display: flex; align-items: center;">
           <a href="upload.html" class="title">Arbitrary Style Transfer</a>
-          <img src="opacity_12056793.png" style="margin-left: 10px;" width="40px" height="35px">
+          <img src="../static/images/opacity_12056793.png" style="margin-left: 10px;" width="40px" height="35px">
         </div>
         
-        <img src="GitHub-Logo.png" class="gitlogo" width="65px" height="35px">
+        <img src="../static/images/GitHub-Logo.png" class="gitlogo" width="65px" height="35px">
       </nav>
       <p class="guide"> Upload your image or drop here </p>
       <div class="upload_">
@@ -30,16 +30,8 @@
           </div>
           <p class="upload-text"> You don't have image?</p>
           <div class="image-gallery">
-            <div class="started_2_flex">
-              <img src="content1.webp" alt="Image 1" class="img_sample">
-              <img src="content2.jpeg" alt="Image 2" class="img_sample">
-              <img src="content3.jpg" alt="Image 5" class="img_sample">
-              <button class="see-more-btn">See More</button>
-              <img src="content3.jpg" alt="Image 5" class="gallery-img hidden">
-              <img src="content4.jpeg" alt="Image 6" class="gallery-img hidden">
-              <img src="style3.jpg" alt="Image 7" class="gallery-img hidden">
-              <img src="style4.jpg" alt="Image 8" class="gallery-img hidden">
-            </div>
+            <div class="started_2_flex"></div>
+            <button class="see-more-btn" id="see-more-btn1">See More</button>
           </div>
         </div>
         <div style="display: flex; flex-direction: column; align-items: center;">
@@ -50,20 +42,85 @@
               hoặc thả một tệp,<br>
             </p>
           </div>
+          <p class="upload-text"> You don't have image?</p>
           <div class="image-gallery">
-            <div class="started_2_flex">
-              <img src="style1.jpeg" alt="Image 3" class="img_sample">
-              <img src="style2.jpg" alt="Image 4" class="img_sample">
-              <img src="style3.jpg" alt="Image 7" class="img_sample">
-              <button class="see-more-btn">See More</button>
-              <img src="content3.jpg" alt="Image 5" class="gallery-img hidden">
-              <img src="content4.jpeg" alt="Image 6" class="gallery-img hidden">
-              <img src="style3.jpg" alt="Image 7" class="gallery-img hidden">
-              <img src="style4.jpg" alt="Image 8" class="gallery-img hidden">
-            </div>
+            <div class="started_3_flex"></div>
+              
+            <button class="see-more-btn" id="see-more-btn2">See More</button>            
           </div>
         </div>
       </div>
     </div>
   </body>
 </html>
+
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    const galleryContainer1 = document.querySelector('.started_2_flex');
+    const galleryContainer2 = document.querySelector('.started_3_flex');
+
+    const seeMoreBtn1 = document.querySelector('#see-more-btn1'); // Đảm bảo ID đúng
+    const seeMoreBtn2 = document.querySelector('#see-more-btn2'); // Đảm bảo ID đúng
+
+    // Lấy danh sách hình ảnh từ API
+    const response = await fetch('/api/images');
+    const images = await response.json();
+
+    // Hiển thị 3 hình đầu tiên cho galleryContainer1
+    const firstImages1 = images.slice(0, 3);
+    firstImages1.forEach(img => {
+        const imgElement = document.createElement('img');
+        imgElement.src = img;
+        imgElement.alt = img;
+        imgElement.classList.add('img_sample');
+        galleryContainer1.appendChild(imgElement);
+    });
+
+    // Các hình còn lại ẩn đi cho galleryContainer1
+    const remainingImages1 = images.slice(3);
+    remainingImages1.forEach(img => {
+        const imgElement = document.createElement('img');
+        imgElement.src = img;
+        imgElement.alt = img;
+        imgElement.classList.add('img_sample', 'hidden');
+        galleryContainer1.appendChild(imgElement);
+    });
+
+    // Hiển thị 3 hình đầu tiên cho galleryContainer2
+    const firstImages2 = images.slice(3, 6); // Ví dụ, bạn có thể lấy 3 ảnh tiếp theo
+    firstImages2.forEach(img => {
+        const imgElement = document.createElement('img');
+        imgElement.src = img;
+        imgElement.alt = img;
+        imgElement.classList.add('img_sample');
+        galleryContainer2.appendChild(imgElement);
+    });
+
+    // Các hình còn lại ẩn đi cho galleryContainer2
+    const remainingImages2 = images.slice(6);
+    remainingImages2.forEach(img => {
+        const imgElement = document.createElement('img');
+        imgElement.src = img;
+        imgElement.alt = img;
+        imgElement.classList.add('img_sample', 'hidden');
+        galleryContainer2.appendChild(imgElement);
+    });
+
+    // Khi bấm See More cho galleryContainer1, hiển thị tất cả hình
+    seeMoreBtn1.addEventListener('click', () => {
+        document.querySelectorAll('.started_2_flex .img_sample.hidden').forEach(img => {
+            img.classList.remove('hidden'); // Hiển thị các ảnh còn lại
+        });
+        seeMoreBtn1.style.display = 'none'; // Ẩn nút See More của galleryContainer1
+    });
+
+    // Khi bấm See More cho galleryContainer2, hiển thị tất cả hình
+    seeMoreBtn2.addEventListener('click', () => {
+        document.querySelectorAll('.started_3_flex .img_sample.hidden').forEach(img => {
+            img.classList.remove('hidden'); // Hiển thị các ảnh còn lại
+        });
+        seeMoreBtn2.style.display = 'none'; // Ẩn nút See More của galleryContainer2
+    });
+});
+
+</script>

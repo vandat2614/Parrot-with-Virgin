@@ -126,12 +126,14 @@
 
 .started_2_flex {
   margin-top: 10px;
+  width: 450px;
   display: flex;
+  flex-wrap: wrap;
   gap: 10px
 }
 
 .img_sample{
-  width: 100px;
+  width: 100px; /* Mỗi ảnh chiếm 1/4 chiều rộng của container, trừ khoảng cách */
   height: 100px;
   border-radius: 10px;
 }
@@ -248,4 +250,11 @@
 
 .see-more-btn:hover {
   background-color: #0056b3;
+}
+
+.started_3_flex {
+  width: 450px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Khoảng cách giữa các hình ảnh */
 }
