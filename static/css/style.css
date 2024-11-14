@@ -125,7 +125,6 @@
 }
 
 .started_2_flex {
-  margin-top: 10px;
   width: 450px;
   display: flex;
   flex-wrap: wrap;
@@ -138,23 +137,48 @@
   border-radius: 10px;
 }
 
-.guide {
+
+
+.typing-effect {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  font-family: 'Montserrat';
+  font-size: 30px;
+  background: linear-gradient(to right, #000046, #1cb5e0); /* Gradient màu chữ */
+  -webkit-background-clip: text; /* Cắt gradient vào chữ */
+  -webkit-text-fill-color: transparent; /* Làm nền chữ trong suốt */ 
   justify-content: center;
   display: flex;
-  font-size: 33px;
-  margin-left: 30px;
-  text-decoration: none;
-  font-family:  Montserrat;
-  color: black;
-  font-weight: 750;
-  align-items: center;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid transparent; /* Đường viền nhấp nháy */
+}
+
+.cursor {
+  display: inline-block;
+  width: 10px;
+  background-color: #333;
+  animation: blink 0.7s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
 }
 
 /* Styling cho toàn bộ khung */
 .upload-container {
   width: 400px;
   height: 300px;
-  background-color: #fff;
+  color: rgb(69, 69, 69);
+  box-shadow: 
+    2px 2px px rgba(69, 69, 69, 0.2),
+    -2px -2px 5px rgba(69, 69, 69, 0.2),
+    2px -2px 5px rgba(69, 69, 69, 0.2),
+    -2px 2px 5px rgba(69, 69, 69, 0.2);
+  background-color: white;
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -167,28 +191,28 @@
 
 /* Nút tải lên */
 .upload-button {
-  background-color: #0078FF;
+  background: linear-gradient(to right, #4949e6, #5c8eea); 
   color: #fff;
   border: none;
   border-radius: 12px;
   padding: 15px 32px;
   font-size: 18px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background 1s; /* Cập nhật transition cho background */
+  font-family: 'Montserrat', sans-serif;
 }
+
 
 .upload-button:hover {
-  background-color: #005FCC;
+  background: linear-gradient(to left, #4949e6, #5c8eea);
 }
 
-/* Dòng hướng dẫn */
 .upload-text {
   margin-top: 15px;
   font-size: 16px;
   color: #6c757d;
 }
 
-/* Link trong phần hướng dẫn */
 .upload-text a {
   color: #0078FF;
   text-decoration: none;
@@ -212,6 +236,9 @@
 
 .image-gallery {
   text-align: center;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
 }
 
 .image-container {
@@ -238,18 +265,19 @@
 }
 
 .see-more-btn {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: transparent;
+  width: 90px;
+  height: 45px;
   color: white;
+  background: linear-gradient(to right, #4949e6, #5c8eea);
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  font-family: Montserrat;
 }
 
 .see-more-btn:hover {
-  background-color: #0056b3;
+  background: linear-gradient(to left, #4949e6, #5c8eea);
 }
 
 .started_3_flex {
@@ -258,3 +286,5 @@
   flex-wrap: wrap;
   gap: 10px; /* Khoảng cách giữa các hình ảnh */
 }
+
+
