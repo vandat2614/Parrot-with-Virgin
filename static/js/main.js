@@ -181,3 +181,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         seeMoreBtn2.style.display = 'inline'; // Hiển thị nút See More
     });
 });
+
+const text = "Let's get started!";
+const typingEffect = document.getElementById("typingEffect");
+let index = 0;
+
+function type() {
+  if (index < text.length) {
+    typingEffect.textContent += text[index];
+    index++;
+    setTimeout(type, 100); // tốc độ gõ: 100ms mỗi ký tự
+  }
+}
+
+function resetTypingEffect() {
+  typingEffect.textContent = ""; // Xóa nội dung hiện tại
+  index = 0; // Đặt lại chỉ số
+  type(); // Bắt đầu lại việc gõ chữ
+}
+
+// Bắt đầu gõ chữ lần đầu tiên
+type();
+
+// Sau mỗi 10 giây (10000ms), reset lại và bắt đầu gõ lại từ đầu
+setInterval(resetTypingEffect, 10000);
+
+
