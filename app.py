@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, send_from_directory, session
+from flask import Flask, render_template, request, send_from_directory, redirect, url_for
 import os
-from TransferModel.model import transfer 
+from TransferModel.model import transfer
 
 app = Flask(__name__)
 
@@ -12,7 +12,13 @@ app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
-@app.route('/', methods=['GET', 'POST'])
+# Route chính cho trang giới thiệu
+@app.route('/')
+def introduce():
+    return render_template('introduce.html')
+
+# Route cho trang index, chuyển tiếp từ trang introduce
+@app.route('/index', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         file1 = request.files['style']
@@ -26,21 +32,23 @@ def index():
             file1.save(style_path)
             file2.save(content_path)
             
-            output_path = os.path.join(app.config['OUTPUT_FOLDER'], f'output_image.jpg')
+            output_filename = f'output_image.jpg'
+            output_path = os.path.join(app.config['OUTPUT_FOLDER'], output_filename)
             transfer(content_path, style_path, output_path)  # Gọi hàm style transfer
 
-            return render_template('result.html', output_image=output_path)
+            return render_template('result.html', output_image=output_filename)
 
     return render_template('index.html')
 
+# Route để lấy file ảnh đã upload
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
+# Route để lấy file ảnh kết quả
 @app.route('/outputs/<filename>')
 def output_file(filename):
     return send_from_directory(app.config['OUTPUT_FOLDER'], filename)
-
 
 if __name__ == '__main__':
     app.run(debug=True)

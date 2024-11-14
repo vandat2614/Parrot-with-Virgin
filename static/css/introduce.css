@@ -1,0 +1,132 @@
+.global_flex {
+  background: #7f7fd5; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4);
+  display: flex;
+  flex-direction: column; /* Sắp xếp theo chiều dọc */
+  height: 100vh;
+}
+
+.nav {
+  background-color: rgb(218, 232, 239);
+  width: 100%;
+  margin: 0;
+  height: 45px;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: linear-gradient(to right, #000046, #1cb5e0);
+}
+
+.nav .title {
+  font-size: 24px; /* Kích thước chữ */
+  background: linear-gradient(to right, #000046, #1cb5e0); /* Gradient từ đỏ sang cam */
+  -webkit-background-clip: text; /* Áp dụng gradient cho chữ trên Webkit (Chrome, Safari, Edge) */
+  color: transparent; /* Màu chữ sẽ bị ẩn đi, chỉ để gradient hiển thị */
+}
+
+.nav_below_flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.introduce_flex {
+  display: flex;
+  flex-direction: column;
+}
+.started_1_flex{
+  display: flex;
+  width: 500px;
+  margin-left: 100px;
+  height: 350px;
+  border-radius: 20px;
+  background-color: white ;
+  flex-direction: column;
+  align-items: center;
+}
+.btn {
+    margin-top: 20px;
+    height: fit-content;
+    width: fit-content;
+    background-color: #5d93eb;
+    border-radius: 12px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 30px; 
+    font-family: Montserrat;  
+    font-weight: 500;
+  }
+
+.title {
+  font-size: 33px;
+  margin-left: 30px;
+  text-decoration: none;
+  font-family:  Montserrat;
+  color: black;
+  font-weight: 750;
+}
+
+.title1 {
+  margin-left: 280px;
+  font-size: 35px;
+  font-family: Montserrat;
+  font-weight: 550;
+}
+
+.title2 {
+  margin-left: 280px;
+  font-size: 25px;
+  font-family: Montserrat;
+  position: relative;
+  display: inline-block; 
+  position: relative;
+  font-weight: 500;
+  z-index: 2; 
+}
+
+.title3{
+  font-family: Montserrat;
+  font-weight: 400;
+  margin-top: 80px;
+}
+.introimg {
+  margin-top: 100px;
+  margin-left: 280px;
+}
+
+
+
+.gitlogo {
+  margin-right: 30px;
+}
+
+.title2-container {
+  position: relative; /* Tạo khung tham chiếu cho các phần tử bên trong */
+  display: inline-block; /* Căn chỉnh các phần tử con theo nội dung */
+}
+
+.highlight {
+  position: absolute;
+  z-index: 1;
+  top: -5px; /* Điều chỉnh vị trí theo yêu cầu */
+  left: 580px; /* Điều chỉnh vị trí theo yêu cầu */
+}
+
+.flag {
+  margin-left: 376px;
+  margin-top: -30px;
+}
+
+.started_2_flex {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px
+}
+
+.img_sample{
+  border-radius: 10px;
+}
