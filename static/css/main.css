@@ -148,3 +148,65 @@ body {
 .transfer-btn:hover {
   background: linear-gradient(to left, #4949e6, #5c8eea);
 }
+
+.image-gallery {
+  text-align: center;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+}
+
+.gallery-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.gallery-img:hover {
+  transform: scale(1.1); /* Phóng to nhẹ khi hover */
+}
+
+.hidden {
+  display: none; 
+}
+
+.see-more-btn {
+  width: 90px;
+  height: 45px;
+  color: white;
+  background: linear-gradient(to right, #4949e6, #5c8eea);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: Montserrat;
+}
+
+.see-more-btn:hover {
+  background: linear-gradient(to left, #4949e6, #5c8eea);
+}
+
+.img_sample{
+  width: 100px; /* Mỗi ảnh chiếm 1/4 chiều rộng của container, trừ khoảng cách */
+  height: 100px;
+  border-radius: 10px;
+}
+
+
+.started_2_flex {
+  width: 450px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px
+}
+
+.started_3_flex {
+  width: 450px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+

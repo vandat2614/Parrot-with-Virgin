@@ -1,0 +1,290 @@
+.global_flex {
+  background: #7f7fd5; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4);
+  display: flex;
+  flex-direction: column; /* Sắp xếp theo chiều dọc */
+  height: 100vh;
+}
+
+.nav {
+  background-color: rgb(218, 232, 239);
+  width: 100%;
+  margin: 0;
+  height: 45px;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: linear-gradient(to right, #000046, #1cb5e0);
+}
+
+.nav .title {
+  font-size: 24px; /* Kích thước chữ */
+  background: linear-gradient(to right, #000046, #1cb5e0); /* Gradient từ đỏ sang cam */
+  -webkit-background-clip: text; /* Áp dụng gradient cho chữ trên Webkit (Chrome, Safari, Edge) */
+  color: transparent; /* Màu chữ sẽ bị ẩn đi, chỉ để gradient hiển thị */
+}
+
+.nav_below_flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.introduce_flex {
+  display: flex;
+  flex-direction: column;
+}
+.started_1_flex{
+  display: flex;
+  width: 500px;
+  margin-left: 100px;
+  height: 350px;
+  border-radius: 20px;
+  background-color: white ;
+  flex-direction: column;
+  align-items: center;
+}
+.start_btn {
+    margin-top: 20px;
+    height: fit-content;
+    width: fit-content;
+    background-color: #5d93eb;
+    border-radius: 12px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 30px; 
+    font-family: Montserrat;  
+    font-weight: 500;
+  }
+
+  .start_btn:hover {
+    background-color: #000046;
+  }
+.title {
+  font-size: 33px;
+  margin-left: 30px;
+  text-decoration: none;
+  font-family:  Montserrat;
+  color: black;
+  font-weight: 750;
+}
+
+.title1 {
+  margin-left: 280px;
+  font-size: 35px;
+  font-family: Montserrat;
+  font-weight: 550;
+}
+
+.title2 {
+  margin-left: 280px;
+  font-size: 25px;
+  font-family: Montserrat;
+  position: relative;
+  display: inline-block; 
+  position: relative;
+  font-weight: 500;
+  z-index: 2; 
+}
+
+.title3{
+  font-family: Montserrat;
+  font-weight: 400;
+  margin-top: 80px;
+}
+.introimg {
+  margin-top: 100px;
+  margin-left: 280px;
+}
+
+
+
+.gitlogo {
+  margin-right: 30px;
+}
+
+.title2-container {
+  position: relative; /* Tạo khung tham chiếu cho các phần tử bên trong */
+  display: inline-block; /* Căn chỉnh các phần tử con theo nội dung */
+}
+
+.highlight {
+  position: absolute;
+  z-index: 1;
+  top: -5px; /* Điều chỉnh vị trí theo yêu cầu */
+  left: 580px; /* Điều chỉnh vị trí theo yêu cầu */
+}
+
+.flag {
+  margin-left: 376px;
+  margin-top: -30px;
+}
+
+.started_2_flex {
+  width: 450px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px
+}
+
+.img_sample{
+  width: 100px; /* Mỗi ảnh chiếm 1/4 chiều rộng của container, trừ khoảng cách */
+  height: 100px;
+  border-radius: 10px;
+}
+
+
+
+.typing-effect {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  font-family: 'Montserrat';
+  font-size: 30px;
+  background: linear-gradient(to right, #000046, #1cb5e0); /* Gradient màu chữ */
+  -webkit-background-clip: text; /* Cắt gradient vào chữ */
+  -webkit-text-fill-color: transparent; /* Làm nền chữ trong suốt */ 
+  justify-content: center;
+  display: flex;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid transparent; /* Đường viền nhấp nháy */
+}
+
+.cursor {
+  display: inline-block;
+  width: 10px;
+  background-color: #333;
+  animation: blink 0.7s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Styling cho toàn bộ khung */
+.upload-container {
+  width: 400px;
+  height: 300px;
+  color: rgb(69, 69, 69);
+  box-shadow: 
+    2px 2px px rgba(69, 69, 69, 0.2),
+    -2px -2px 5px rgba(69, 69, 69, 0.2),
+    2px -2px 5px rgba(69, 69, 69, 0.2),
+    -2px 2px 5px rgba(69, 69, 69, 0.2);
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: Montserrat, sans-serif;
+}
+
+/* Nút tải lên */
+.upload-button {
+  background: linear-gradient(to right, #4949e6, #5c8eea); 
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 15px 32px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 1s; /* Cập nhật transition cho background */
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+.upload-button:hover {
+  background: linear-gradient(to left, #4949e6, #5c8eea);
+}
+
+.upload-text {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #6c757d;
+}
+
+.upload-text a {
+  color: #0078FF;
+  text-decoration: none;
+}
+
+.upload-text a:hover {
+  text-decoration: underline;
+}
+
+.upload_ {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 250px;
+}
+
+.content_style_format {
+  font-family: Montserrat;
+  font-weight: 600;
+}
+
+.image-gallery {
+  text-align: center;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+}
+
+.image-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.gallery-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.gallery-img:hover {
+  transform: scale(1.1); /* Phóng to nhẹ khi hover */
+}
+
+.hidden {
+  display: none; /* Ẩn hình ảnh khi chưa "See More" */
+}
+
+.see-more-btn {
+  width: 90px;
+  height: 45px;
+  color: white;
+  background: linear-gradient(to right, #4949e6, #5c8eea);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: Montserrat;
+}
+
+.see-more-btn:hover {
+  background: linear-gradient(to left, #4949e6, #5c8eea);
+}
+
+.started_3_flex {
+  width: 450px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Khoảng cách giữa các hình ảnh */
+}
+
+
