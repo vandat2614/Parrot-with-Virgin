@@ -12,7 +12,7 @@
     {% if output_image %}
         <div class="output-container">
             <div class="image-box">
-                <img src="{{ url_for('output_file', filename='output_image.jpg') }}" alt="Output Image">
+                <img src="data:image/jpeg;base64,{{ output_image }}" alt="Output Image">
             </div>
 
             <label for="back-to-index" class="back-btn">Go Back</label>

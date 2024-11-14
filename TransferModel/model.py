@@ -4,6 +4,7 @@ from torch.nn import init
 from torchvision import transforms
 from PIL import Image
 from torchvision.utils import save_image
+from torchvision.transforms.functional import to_pil_image
 import time
 from concurrent.futures import ThreadPoolExecutor
 
@@ -324,12 +325,33 @@ class AdaAttNModel:
         return self.cs
 
 
-def transfer(content_path, style_path, result_path):
+# def transfer(content_path, style_path, result_path):
+#     start = time.time()
+#     model = AdaAttNModel()
+
+#     content_img = Image.open(content_path).convert('RGB')
+#     style_img = Image.open(style_path).convert('RGB')
+
+#     transformer = transforms.Compose([
+#         transforms.Resize((512, 512), interpolation=Image.BICUBIC),
+#         transforms.ToTensor()
+#     ])
+#     # origin_size = (content_img.size[1], content_img.size[0])
+#     # resize = transforms.Resize(origin_size)
+
+#     content_img = transformer(content_img)
+#     style_img = transformer(style_img)
+
+#     result = model.forward(content_img.unsqueeze(0), style_img.unsqueeze(0))[0]
+
+#     print(f'Finish: {time.time() - start}')
+
+#     save_image(result, result_path)
+
+
+def transfer(content_img, style_img):
     start = time.time()
     model = AdaAttNModel()
-
-    content_img = Image.open(content_path).convert('RGB')
-    style_img = Image.open(style_path).convert('RGB')
 
     transformer = transforms.Compose([
         transforms.Resize((512, 512), interpolation=Image.BICUBIC),
@@ -342,7 +364,5 @@ def transfer(content_path, style_path, result_path):
     style_img = transformer(style_img)
 
     result = model.forward(content_img.unsqueeze(0), style_img.unsqueeze(0))[0]
-
     print(f'Finish: {time.time() - start}')
-
-    save_image(result, result_path)
+    return to_pil_image(result)
