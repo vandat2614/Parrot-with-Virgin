@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Style Transfer</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
+
 </head>
 <body>
 
     {% if output_image %}
         <div class="output-container">
-            <div class="image-box output-image-box">
+            <div class="image-box">
                 <img src="{{ url_for('output_file', filename='output_image.jpg') }}" alt="Output Image">
             </div>
 
-            <label for="back-to-index" class="transfer-btn">Go Back</label>
-            <input type="button" id="back-to-index" style="display: none;" onclick="window.location.href='{{ url_for('index') }}'">
+            <label for="back-to-index" class="back-btn">Go Back</label>
+            <input type="button" id="back-to-index" style="display: none;" onclick="window.location.href='{{ url_for('main') }}'">
         </div>
     {% endif %}
-
 
 </body>
 </html>

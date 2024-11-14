@@ -1,0 +1,150 @@
+body {
+    /* background: linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4); */
+    display: flex;
+    flex-direction: column; 
+    height: 100vh;
+    margin: 0px;
+  }
+
+.nav {
+    background-color: rgb(218, 232, 239);
+    width: 100%;
+    margin: 0;
+    height: 45px;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: linear-gradient(to right, #000046, #1cb5e0);
+  }
+
+.nav .title {
+    background: linear-gradient(to right, #000046, #1cb5e0);
+    -webkit-background-clip: text; 
+    color: transparent; 
+    font-size: 33px;
+    margin-left: 30px;
+    text-decoration: none;
+    font-family:  Montserrat;
+    font-weight: 750;
+  }
+
+.typing-effect {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-family: 'Montserrat';
+    font-size: 30px;
+    background: linear-gradient(to right, #000046, #1cb5e0);
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    justify-content: center;
+    display: flex;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid transparent; 
+  }
+  
+.cursor {
+    display: inline-block;
+    width: 10px;
+    background-color: #333;
+    animation: blink 0.7s steps(2, start) infinite;
+  }
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.upload-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 250px;
+}
+
+.box-with-name{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.box-title{
+  font-size: x-large;
+  font-family: Montserrat;
+  font-weight: 600;
+}
+
+.image-box {
+  width: 400px;
+  height: 300px;
+  position: relative;
+  overflow: hidden;
+  color: rgb(69, 69, 69);
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: Montserrat, sans-serif;
+}
+
+.image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Ảnh sẽ nằm dưới các thành phần khác */
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.upload-btn {
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.upload-btn {
+  background: linear-gradient(to right, #4949e6, #5c8eea); 
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 15px 32px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 1s;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.upload-btn:hover {
+  background: linear-gradient(to left, #4949e6, #5c8eea);
+}
+
+.transfer-btn {
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(to right, #4949e6, #5c8eea); 
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+  padding: 15px 100px;
+}
+
+.transfer-btn:hover {
+  background: linear-gradient(to left, #4949e6, #5c8eea);
+}
