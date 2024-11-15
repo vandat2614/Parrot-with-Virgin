@@ -191,4 +191,3 @@ document.addEventListener('DOMContentLoaded', async () => {
     toggleImages(seeMoreBtns.content, hideBtns.content, galleryContainers.content);
     toggleImages(seeMoreBtns.style, hideBtns.style, galleryContainers.style);
 });
-

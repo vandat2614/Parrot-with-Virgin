@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, send_from_directory, jsonify
 import os
 from TransferModel.model import transfer
+from PIL import Image
+import io
+import base64
 
 app = Flask(__name__)
 
@@ -27,18 +30,16 @@ def main():
         file2 = request.files['content']
         
         if file1 and file2:
-            suffix = len(os.listdir(app.config['UPLOAD_FOLDER']))
+            style_image = Image.open(io.BytesIO(file1.read())).convert('RGB')
+            content_image = Image.open(io.BytesIO(file2.read())).convert('RGB')
 
-            style_path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
-            content_path = os.path.join(app.config['UPLOAD_FOLDER'], file2.filename)
-            file1.save(style_path)
-            file2.save(content_path)
-            
-            output_filename = f'output_image.jpg'
-            output_path = os.path.join(app.config['OUTPUT_FOLDER'], output_filename)
-            transfer(content_path, style_path, output_path)  # Gọi hàm style transfer
+            output_image = transfer(content_image, style_image)  # Gọi hàm style transfer
 
-            return render_template('result.html', output_image=output_filename)
+            buffered = io.BytesIO()
+            output_image.save(buffered, format="JPEG")
+            img_str = base64.b64encode(buffered.getvalue()).decode()
+
+            return render_template('result.html', output_image=img_str)
 
     return render_template('main.html')
 
