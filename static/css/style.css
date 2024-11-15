@@ -138,36 +138,6 @@
 }
 
 
-
-.typing-effect {
-  margin-top: 50px;
-  margin-bottom: 50px;
-  font-family: 'Montserrat';
-  font-size: 30px;
-  background: linear-gradient(to right, #000046, #1cb5e0); /* Gradient màu chữ */
-  -webkit-background-clip: text; /* Cắt gradient vào chữ */
-  -webkit-text-fill-color: transparent; /* Làm nền chữ trong suốt */ 
-  justify-content: center;
-  display: flex;
-  font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 2px solid transparent; /* Đường viền nhấp nháy */
-}
-
-.cursor {
-  display: inline-block;
-  width: 10px;
-  background-color: #333;
-  animation: blink 0.7s steps(2, start) infinite;
-}
-
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
-}
-
 /* Styling cho toàn bộ khung */
 .upload-container {
   width: 400px;
