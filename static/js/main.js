@@ -1,21 +1,29 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const text = "Let's get started!";
-    const typedTextElement = document.getElementById('typed-text');
-    const cursorElement = document.querySelector('.cursor');
+function startTypingEffect(elementId, text, typingSpeed = 100, resetInterval = 10000) {
+    const typingEffect = document.getElementById(elementId);
     let index = 0;
   
-    function typeWriter() {
-        if (index < text.length) {
-            typedTextElement.textContent += text[index]; 
-            index++;
-            setTimeout(typeWriter, 150);
-        } else {
-            cursorElement.style.display = 'none';
-        }
+    function type() {
+      if (index < text.length) {
+        typingEffect.textContent += text[index];
+        index++;
+        setTimeout(type, typingSpeed);
+      }
     }
   
-    typeWriter();
-});
+    function resetTypingEffect() {
+      typingEffect.textContent = "";
+      index = 0;
+      type();
+    }
+  
+    type();
+    setInterval(resetTypingEffect, resetInterval);
+  }
+  
+  startTypingEffect("typingEffect", "Let's get started!", 100, 10000);
+  
+
+
 
 function displayImage(file, containerId) {
     const imageBox = document.getElementById(containerId);
@@ -190,4 +198,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     toggleImages(seeMoreBtns.content, hideBtns.content, galleryContainers.content);
     toggleImages(seeMoreBtns.style, hideBtns.style, galleryContainers.style);
+});
+
+
+document.getElementById('transfer-btn').addEventListener('click', function(event) {
+
+    document.getElementById('overlay').style.display = 'block';
+    setTimeout(function() {
+        document.getElementById('overlay').style.opacity = 1;  // Làm mờ màn hình
+    }, 10);
 });

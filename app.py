@@ -7,22 +7,20 @@ import base64
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = 'static/uploads'
-OUTPUT_FOLDER = 'static/outputs'
 CONTENT_IMAGE_FOLDER = os.path.join('static', 'images/content')
 STYLE_IMAGE_FOLDER = os.path.join('static', 'images/style')
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
 
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
-# Route chính cho trang giới thiệu
+def img2str(image):
+    buffered = io.BytesIO()
+    image.save(buffered, format="JPEG")
+    img_str = base64.b64encode(buffered.getvalue()).decode()
+    return img_str
+
 @app.route('/')
 def introduce():
     return render_template('introduce.html')
 
-# Route cho trang index, chuyển tiếp từ trang introduce
 @app.route('/main', methods=['GET', 'POST'])
 def main():
     if request.method == 'POST':
@@ -32,26 +30,11 @@ def main():
         if file1 and file2:
             style_image = Image.open(io.BytesIO(file1.read())).convert('RGB')
             content_image = Image.open(io.BytesIO(file2.read())).convert('RGB')
-
             output_image = transfer(content_image, style_image)  # Gọi hàm style transfer
 
-            buffered = io.BytesIO()
-            output_image.save(buffered, format="JPEG")
-            img_str = base64.b64encode(buffered.getvalue()).decode()
-
-            return render_template('result.html', output_image=img_str)
+            return render_template('result.html', content_image=img2str(content_image), style_image=img2str(style_image), output_image=img2str(output_image))
 
     return render_template('main.html')
-
-# Route để lấy file ảnh đã upload
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-
-# Route để lấy file ảnh kết quả
-@app.route('/outputs/<filename>')
-def output_file(filename):
-    return send_from_directory(app.config['OUTPUT_FOLDER'], filename)
 
 @app.route('/api/content_images')
 def get_content_images():

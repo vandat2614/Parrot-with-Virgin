@@ -21,6 +21,8 @@
   
     <div id="typingEffect" style="font-size: 40px; text-align: center; height: 100px; font-family: Montserrat; margin-top: 50px; margin-bottom: 25px; font-weight: 600;"></div>
 
+    <div id="overlay" style="display: none;"></div>
+
     <form method="POST" enctype="multipart/form-data" class="main-container">
         <div class="upload-container">
 
@@ -41,6 +43,7 @@
                     <button class="see-more-btn hidden" id="hide-btn1">Hide</button>
                 </div>
             </div>
+
             <div class="box-with-name">
                 <p class="box-title">Style image</p>
                 <div class="image-box" id="style-dropzone">
@@ -53,36 +56,17 @@
                 <p style="font-family: Montserrat;  margin-top: 10px; font-size: 16px; color: #6c757d; z-index: 2;">You don't have image?</p>
 
                 <div class="image-gallery">
-                    <div class="started_2_flex"></div>
-                    <button class="see-more-btn" id="see-more-btn1">See more</button>
-                    <button class="see-more-btn hidden" id="hide-btn1">Hide</button>
-                </div>
-
-            </div>
-
-            <div class="box-with-name">
-                <p class="box-title">Style image</p>
-                <div class="image-box" id="style-dropzone">
-                    <div class="image-container"></div> 
-                    <input type="file" id="style" name="style" accept="image/*" style="display: none;">
-                    <label for="style" class="upload-btn">Upload image</label>
-                    <p style="  margin-top: 10px; font-size: 16px; color: #6c757d; z-index: 2;">or drop here</p>
-                </div>
-                <p style="  margin-top: 10px; font-size: 16px; color: #6c757d; z-index: 2;">You don't have image?</p>
-
-                <div class="image-gallery">
                     <div class="started_3_flex"></div>
                     <button class="see-more-btn" id="see-more-btn2">See more</button>
-                    <button class="see-more-btn hidden" id="hide-btn2">Hide</button>         
+                    <button class="see-more-btn hidden" id="hide-btn2">Hide</button>
                 </div>
 
             </div>
-
         </div>
-        
 
         <input type="submit" id="submit" style="display: none;">
-        <label for="submit" class="transfer-btn">Apply Style Transfer</label>
+        <label for="submit" class="transfer-btn" id="transfer-btn">Apply Style Transfer</label>
+        
     </form>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
