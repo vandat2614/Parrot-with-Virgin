@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Style Transfer</title>
+    <link rel="stylesheet" href="../static/css/test.css">
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="name_logo" style="display: flex; align-items: center;">
+          <a href="upload.html" class="title">Arbitrary Style Transfer</a>
+          <img src="../static/images/img4web/opacity_12056793.png" style="margin-left: 10px;" width="40px" height="35px">
+        </div>
+        <img src="../static/images/img4web/GitHub-Logo.png" class="gitlogo" width="65px" height="35px">
+    </nav>
+
+    <div class="nav_below">
+        <div class="box_input">
+            <div class="input" id="input1"></div>
+            <div class="input" id="input2"></div>
+        </div>
+        <div class="box_output">
+            <p class="title">Your result</p>
+            <div class="output"></div>
+            <button id="btn_back" style="margin-top: auto;">Back</button>
+        </div>
+        <div class="box_download">
+            <div style="height: 100px;"></div>
+            <button id="btn_download"> Download </button>
+            <p id="txt_size">512 x 512 px</p>
+            <div class="box_like">
+                <p id="like">Would you like this image?</p>
+                <img src="../static/images/img4web/like.png" class="like_icon" width="30px" height="30px" style="margin-top: 215px;">
+                <img src="../static/images/img4web/dislike.png" class="like_icon" width="30px" height="30px" style="margin-top: 225px;">
+                
+            </div>
+        </div>
+    </div>
