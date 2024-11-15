@@ -85,99 +85,110 @@ contentDropzone.addEventListener('drop', function(event) {
 
 /*Hide = Show*/
 document.addEventListener('DOMContentLoaded', async () => {
-    const galleryContainer1 = document.querySelector('.started_2_flex');
-    const galleryContainer2 = document.querySelector('.started_3_flex');
+    // Khai báo các container và nút
+    const galleryContainers = {
+        content: document.querySelector('.started_2_flex'),
+        style: document.querySelector('.started_3_flex')
+    };
 
-    const seeMoreBtn1 = document.querySelector('#see-more-btn1'); 
-    const seeMoreBtn2 = document.querySelector('#see-more-btn2'); 
-    const hideBtn1 = document.querySelector('#hide-btn1'); 
-    const hideBtn2 = document.querySelector('#hide-btn2'); 
+    const seeMoreBtns = {
+        content: document.querySelector('#see-more-btn1'),
+        style: document.querySelector('#see-more-btn2')
+    };
 
-    // Lấy danh sách hình ảnh từ API cho thư mục content
-    const response_content = await fetch('/api/content_images');
-    const images_content = await response_content.json();
+    const hideBtns = {
+        content: document.querySelector('#hide-btn1'),
+        style: document.querySelector('#hide-btn2')
+    };
 
-    // Lấy danh sách hình ảnh từ API cho thư mục style
-    const response_style = await fetch('/api/style_images');
-    const images_style = await response_style.json();
+    const imageContainers = {
+        content: document.querySelector('#content-dropzone .image-container'),
+        style: document.querySelector('#style-dropzone .image-container')
+    };
 
-    // Hiển thị 3 hình đầu tiên cho galleryContainer1 (content images)
-    const firstImages1 = images_content.slice(0, 3); // 3 ảnh đầu tiên
-    firstImages1.forEach(img => {
+    const inputElements = {
+        content: document.getElementById('content'),
+        style: document.getElementById('style')
+    };
+
+    // Hàm tải ảnh từ API và hiển thị chúng
+    async function loadImages(apiUrl, container, type) {
+        const response = await fetch(apiUrl);
+        const images = await response.json();
+
+        const firstImages = images.slice(0, 3);
+        firstImages.forEach(img => {
+            const imgElement = createImageElement(img, false, type);
+            container.appendChild(imgElement);
+        });
+
+        const remainingImages = images.slice(3);
+        remainingImages.forEach(img => {
+            const imgElement = createImageElement(img, true, type);
+            container.appendChild(imgElement);
+        });
+    }
+
+    // Hàm tạo phần tử ảnh và thêm sự kiện click
+    function createImageElement(src, hidden = false, type) {
         const imgElement = document.createElement('img');
-        imgElement.src = img;
-        imgElement.alt = img;
+        imgElement.src = src;
+        imgElement.alt = src;
         imgElement.classList.add('img_sample');
-        galleryContainer1.appendChild(imgElement);
-    });
+        if (hidden) imgElement.classList.add('hidden');
+        
+        // Thêm sự kiện khi click vào ảnh
+        imgElement.addEventListener('click', () => {
+            displayImageInContainer(src, type);
+        });
 
-    // Các hình còn lại ẩn đi cho galleryContainer1
-    const remainingImages1 = images_content.slice(3); // Các ảnh còn lại
-    remainingImages1.forEach(img => {
+        return imgElement;
+    }
+
+    // Hàm hiển thị ảnh trong container và lưu vào thẻ input khi click vào ảnh
+    async function displayImageInContainer(src, type) {
+        const container = imageContainers[type];
+        container.innerHTML = ''; // Xóa ảnh cũ nếu có
         const imgElement = document.createElement('img');
-        imgElement.src = img;
-        imgElement.alt = img;
-        imgElement.classList.add('img_sample', 'hidden');
-        galleryContainer1.appendChild(imgElement);
-    });
+        imgElement.src = src;
+        imgElement.alt = src;
+        container.appendChild(imgElement);
 
-    // Hiển thị 3 hình đầu tiên cho galleryContainer2 (style images)
-    const firstImages2 = images_style.slice(0, 3); // 3 ảnh đầu tiên
-    firstImages2.forEach(img => {
-        const imgElement = document.createElement('img');
-        imgElement.src = img;
-        imgElement.alt = img;
-        imgElement.classList.add('img_sample');
-        galleryContainer2.appendChild(imgElement);
-    });
+        // Fetch ảnh từ URL, chuyển đổi thành file và lưu vào input
+        const response = await fetch(src);
+        const blob = await response.blob();
+        const file = new File([blob], `selected_${type}.jpg`, { type: blob.type });
+        
+        // Cập nhật vào thẻ input để gửi form
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        inputElements[type].files = dataTransfer.files;
+    }
 
-    // Các hình còn lại ẩn đi cho galleryContainer2
-    const remainingImages2 = images_style.slice(3); // Các ảnh còn lại
-    remainingImages2.forEach(img => {
-        const imgElement = document.createElement('img');
-        imgElement.src = img;
-        imgElement.alt = img;
-        imgElement.classList.add('img_sample', 'hidden');
-        galleryContainer2.appendChild(imgElement);
-    });
-
-    // Khi bấm See More cho galleryContainer1 (content images)
-    seeMoreBtn1.addEventListener('click', (event) => {
-        event.preventDefault(); // Ngăn chặn hành động mặc định của nút
-        document.querySelectorAll('.started_2_flex .img_sample.hidden').forEach(img => {
-            img.classList.remove('hidden'); // Hiển thị các ảnh còn lại
+    // Hàm xử lý sự kiện khi bấm "See More" hoặc "Hide"
+    function toggleImages(seeMoreBtn, hideBtn, container) {
+        seeMoreBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            container.querySelectorAll('.img_sample.hidden').forEach(img => img.classList.remove('hidden'));
+            seeMoreBtn.style.display = 'none';
+            hideBtn.classList.remove('hidden');
         });
-        seeMoreBtn1.style.display = 'none'; // Ẩn nút See More
-        hideBtn1.classList.remove('hidden'); // Hiển thị nút Hide
-    });
 
-    // Khi bấm Hide cho galleryContainer1 (content images)
-    hideBtn1.addEventListener('click', (event) => {
-        event.preventDefault(); // Ngăn chặn hành động mặc định của nút
-        document.querySelectorAll('.started_2_flex .img_sample:not(.hidden)').forEach((img, index) => {
-            if (index >= 3) img.classList.add('hidden'); // Ẩn lại các ảnh dư thừa
+        hideBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            container.querySelectorAll('.img_sample').forEach((img, index) => {
+                if (index >= 3) img.classList.add('hidden');
+            });
+            hideBtn.classList.add('hidden');
+            seeMoreBtn.style.display = 'inline';
         });
-        hideBtn1.classList.add('hidden'); // Ẩn nút Hide
-        seeMoreBtn1.style.display = 'inline'; // Hiển thị nút See More
-    });
+    }
 
-    // Khi bấm See More cho galleryContainer2 (style images)
-    seeMoreBtn2.addEventListener('click', (event) => {
-        event.preventDefault(); // Ngăn chặn hành động mặc định của nút
-        document.querySelectorAll('.started_3_flex .img_sample.hidden').forEach(img => {
-            img.classList.remove('hidden'); // Hiển thị các ảnh còn lại
-        });
-        seeMoreBtn2.style.display = 'none'; // Ẩn nút See More
-        hideBtn2.classList.remove('hidden'); // Hiển thị nút Hide
-    });
+    // Load ảnh cho từng container và thiết lập sự kiện
+    await loadImages('/api/content_images', galleryContainers.content, 'content');
+    await loadImages('/api/style_images', galleryContainers.style, 'style');
 
-    // Khi bấm Hide cho galleryContainer2 (style images)
-    hideBtn2.addEventListener('click', (event) => {
-        event.preventDefault(); // Ngăn chặn hành động mặc định của nút
-        document.querySelectorAll('.started_3_flex .img_sample:not(.hidden)').forEach((img, index) => {
-            if (index >= 3) img.classList.add('hidden'); // Ẩn lại các ảnh dư thừa
-        });
-        hideBtn2.classList.add('hidden'); // Ẩn nút Hide
-        seeMoreBtn2.style.display = 'inline'; // Hiển thị nút See More
-    });
+    toggleImages(seeMoreBtns.content, hideBtns.content, galleryContainers.content);
+    toggleImages(seeMoreBtns.style, hideBtns.style, galleryContainers.style);
 });
+
