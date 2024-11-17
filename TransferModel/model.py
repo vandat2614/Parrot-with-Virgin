@@ -7,6 +7,7 @@ from torchvision.utils import save_image
 from torchvision.transforms.functional import to_pil_image
 import time
 from concurrent.futures import ThreadPoolExecutor
+import os
 
 def calc_mean_std(feat, eps=1e-5):
     # eps is a small value added to the variance to avoid divide-by-zero.
@@ -348,21 +349,21 @@ class AdaAttNModel:
 
 #     save_image(result, result_path)
 
+def tensor_to_pil(image_tensor):
+    image_tensor = torch.clamp(image_tensor, 0, 1)
+    return to_pil_image(image_tensor)
 
 def transfer(content_img, style_img):
     start = time.time()
     model = AdaAttNModel()
 
     transformer = transforms.Compose([
-        transforms.Resize((512, 512), interpolation=Image.BICUBIC),
+        transforms.Resize((512, 512), interpolation=Image.BICUBIC), 
         transforms.ToTensor()
     ])
-    # origin_size = (content_img.size[1], content_img.size[0])
-    # resize = transforms.Resize(origin_size)
 
     content_img = transformer(content_img)
     style_img = transformer(style_img)
 
     result = model.forward(content_img.unsqueeze(0), style_img.unsqueeze(0))[0]
-    print(f'Finish: {time.time() - start}')
-    return to_pil_image(result)
+    return tensor_to_pil(result)
