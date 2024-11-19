@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 document.getElementById('transfer-btn').addEventListener('click', function(event) {
 
-    document.getElementById('overlay').style.display = 'block';
+    document.getElementById('overlay').style.display = 'flex';
     setTimeout(function() {
         document.getElementById('overlay').style.opacity = 1;  // Làm mờ màn hình
     }, 10);
