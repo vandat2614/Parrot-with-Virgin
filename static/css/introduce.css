@@ -1,4 +1,4 @@
-.global_flex {
+body {
   background: #7f7fd5; /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4);
@@ -7,6 +7,8 @@
   height: 100vh;
 }
 
+
+/* Title bar </start> */
 .nav {
   background-color: rgb(218, 232, 239);
   width: 100%;
@@ -26,14 +28,34 @@
   color: transparent; /* Màu chữ sẽ bị ẩn đi, chỉ để gradient hiển thị */
 }
 
+.title {
+  font-size: 33px;
+  margin-left: 30px;
+  text-decoration: none;
+  font-family:  Montserrat;
+  color: black;
+  font-weight: 750;
+}
+
+.gitlogo {
+  margin-right: 30px;
+}
+/* Title bar </end> */
+
+
+/* Introduction frame </start> */
 .nav_below_flex {
   display: flex;
   flex-direction: row;
 }
+/* Introduction frame </end> */
 
-.introduce_flex {
-  display: flex;
-  flex-direction: column;
+
+
+/* Right introduce frame </start> */
+.flag {
+  margin-left: 376px;
+  margin-top: -30px;
 }
 
 .started_1_flex{
@@ -65,17 +87,30 @@
 
 .start_btn:hover {
     background-color: #000046;
-  }
-  
-.title {
-  font-size: 33px;
-  margin-left: 30px;
-  text-decoration: none;
-  font-family:  Montserrat;
-  color: black;
-  font-weight: 750;
 }
 
+.title3{
+    font-family: Montserrat;
+    font-weight: 400;
+    margin-top: 80px;
+}
+
+.started_2_flex {
+    width: 450px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px
+}
+
+.img_sample{
+    width: 100px; /* Mỗi ảnh chiếm 1/4 chiều rộng của container, trừ khoảng cách */
+    height: 100px;
+    border-radius: 10px;
+}
+/* Right introduce frame </end> */
+
+  
+/* Left introduce frame </start> */
 .title1 {
   margin-left: 280px;
   font-size: 35px;
@@ -94,18 +129,9 @@
   z-index: 2; 
 }
 
-.title3{
-  font-family: Montserrat;
-  font-weight: 400;
-  margin-top: 80px;
-}
 .introimg {
   margin-top: 100px;
   margin-left: 280px;
-}
-
-.gitlogo {
-  margin-right: 30px;
 }
 
 .title2-container {
@@ -119,21 +145,4 @@
   top: -5px; /* Điều chỉnh vị trí theo yêu cầu */
   left: 580px; /* Điều chỉnh vị trí theo yêu cầu */
 }
-
-.flag {
-  margin-left: 376px;
-  margin-top: -30px;
-}
-
-.started_2_flex {
-  width: 450px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px
-}
-
-.img_sample{
-  width: 100px; /* Mỗi ảnh chiếm 1/4 chiều rộng của container, trừ khoảng cách */
-  height: 100px;
-  border-radius: 10px;
-}
+/* Left introduce frame </end> */

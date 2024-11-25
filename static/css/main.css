@@ -1,11 +1,11 @@
 body {
-    /* background: linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4); */
     display: flex;
     flex-direction: column; 
     height: 100vh;
     margin: 0px;
-  }
+}
 
+/* Title </start> */
 .nav {
     background-color: rgb(236, 243, 247);
     width: 100%;
@@ -16,7 +16,7 @@ body {
     justify-content: space-between;
     align-items: center;
     color: linear-gradient(to right, #000046, #1cb5e0);
-  }
+}
 
 .nav .title {
     background: linear-gradient(to right, #000046, #1cb5e0);
@@ -27,8 +27,11 @@ body {
     text-decoration: none;
     font-family:  Montserrat;
     font-weight: 750;
-  }
+}
+/* Title </end> */
 
+
+/* Let's get started! animation </start> */ 
 .typing-effect {
     margin-top: 50px;
     margin-bottom: 50px;
@@ -43,15 +46,18 @@ body {
     white-space: nowrap;
     overflow: hidden;
     border-right: 2px solid transparent; 
-  }
+}
   
 .cursor {
     display: inline-block;
     width: 10px;
     background-color: #333;
     animation: blink 0.7s steps(2, start) infinite;
-  }
+}
+/* Let's get started! animation </end> */ 
 
+
+/* Upload content/style image </start> */
 .main-container{
     display: flex;
     flex-direction: column;
@@ -111,12 +117,6 @@ body {
 }
 
 .upload-btn {
-  position: relative;
-  z-index: 2;
-  cursor: pointer;
-}
-
-.upload-btn {
   background: linear-gradient(to right, #4949e6, #5c8eea); 
   color: #fff;
   border: none;
@@ -126,29 +126,18 @@ body {
   cursor: pointer;
   transition: background 1s;
   font-family: 'Montserrat', sans-serif;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
 }
 
 .upload-btn:hover {
   background: linear-gradient(to left, #4949e6, #5c8eea);
 }
+/* Upload content/style image </end> */
 
-.transfer-btn {
-  font-family: 'Montserrat', sans-serif;
-  background: linear-gradient(to right, #4949e6, #5c8eea); 
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  border-radius: 20px;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: background-color 0.3s ease;
-  padding: 15px 100px;
-}
 
-.transfer-btn:hover {
-  background: linear-gradient(to left, #4949e6, #5c8eea);
-}
-
+/* Example images </start> */
 .image-gallery {
   text-align: center;
   display: flex; 
@@ -194,7 +183,6 @@ body {
   border-radius: 10px;
 }
 
-
 .started_2_flex {
   width: 450px;
   display: flex;
@@ -208,14 +196,16 @@ body {
   flex-wrap: wrap;
   gap: 10px;
 }
+/* Example images </end> */
 
+
+/* Loading result page animation <start>*/
 #overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  /* background: rgba(0, 0, 0, 0.5);  Màu nền mờ */
   background: lightblue;
   z-index: 9999;
   display: none; 
@@ -388,3 +378,119 @@ body {
   85% {
     transform-origin: center top;
     transform: scalex(1.3) scaley(0.7); } }
+/* Loading result page animation </end> */
+
+
+/* Control panel </start> */
+.control-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+}
+
+.transfer-btn {
+  font-family: 'Montserrat';
+  background: linear-gradient(to right, #4949e6, #5c8eea); 
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+  padding: 15px 100px;
+}
+
+.transfer-btn:hover {
+  background: linear-gradient(to left, #4949e6, #5c8eea);
+}
+
+.dropdown {
+  min-width: 15em;
+  position: relative;
+  margin-top: 10px;
+  font-family: 'Montserrat';
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.dropdown * {
+  box-sizing: border-box;
+}
+
+.select {
+  background: linear-gradient(to right, #4949e6, #5c8eea); 
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px linear-gradient(to right, #4949e6, #5c8eea) solid;
+  border-radius: 20px;
+  padding: 1em;
+  cursor: pointer;
+  width: 325px;
+}
+
+.select-clicked {
+  border: 0px;
+  /* border: 2px #126da6 solid; */
+  /* box-shadow: 0 0 0.8em #126da6; */
+}
+
+.select:hover{
+  background: linear-gradient(to left, #4949e6, #5c8eea);
+}
+
+.caret {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #fff;
+  transition: 0.3s;
+}
+
+.caret-rotate {
+  transform: rotate(180deg);
+}
+
+.menu {
+  list-style: none;
+  padding: 0.2em 0.5em;
+  background: linear-gradient(#4949e6, #5c8eea);
+  border: 1px linear-gradient(#4949e6, #5c8eea);
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+  border-radius: 0.5em;
+  color: #fff;
+  position: absolute;
+  top: 3em;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%);
+  opacity: 0;
+  display:  none;
+  transition: 0.2s;
+  z-index: 1;
+}
+
+.menu li {
+  padding: 0.7em 0.5em;
+  margin: 0.3em 0;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+
+.menu li:hover {
+  background: #3a6bc7;
+}
+
+.active {
+  background: #5c8eea;
+}
+
+.menu-open {
+  display: block;
+  opacity: 1;
+}
+/* Control panel </end> */

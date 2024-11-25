@@ -9,30 +9,41 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/introduce.css') }}">
 </head>
 
-<body class="global_flex" style="margin: 0;">
+<body style="margin: 0;">
+
+    <!-- Title bar -->
     <nav class="nav">
         <div class="name_logo" style="display: flex; align-items: center;">
-            <a href="upload.html" class="title">Arbitrary Style Transfer</a>
+            <a href="{{ url_for('introduce') }}" class="title">Arbitrary Style Transfer</a>
             <img src="../static/images/img4web/opacity_12056793.png" style="margin-left: 10px;" width="40px" height="35px">
         </div>
         <img src="../static/images/img4web/GitHub-Logo.png" class="gitlogo" width="65px" height="35px">
     </nav>
     
+    <!-- Introduce frame -->
     <div class="nav_below_flex">
-        <div class="img4web_flex">
+
+        <!-- Left introduce frame -->
+        <div>
             <img src="../static/images/img4web/image-removebg-preview.png" alt="img4web img" class="introimg" width="470px">
             <p class="title1">Transform your photo into <br> any style you want!</p>
+
             <p class="title2-container">
                 <img src="../static/images/img4web/highlight.png" class="highlight" alt="highlight" width="80px" height="40px">
                 <span class="title2">100% Automatically and &nbsp;Free</span>
             </p>
         </div>
         
-        <div class="started_flex">
+        <!-- Right introduce frame -->
+        <div>
+            <!-- Decorate -->
             <img src="../static/images/img4web/flag.png" class="flag" width="400px" height="300px">
+
+            <!-- Started frame with 4 example -->
             <div class="started_1_flex">
                 <a href="{{ url_for('main') }}" class="start_btn">Get started</a>
                 <p class="title3">You don't have any image? Don't worry</p>
+                
                 <div class="started_2_flex">
                     <img src="../static/images/content/content3.jpg" width="100px" height="100px" class="img_sample">
                     <img src="../static/images/style/style2.jpg" width="100px" height="100px" class="img_sample">
@@ -40,7 +51,9 @@
                     <img src="../static/images/content/content6.jpeg" width="100px" height="100px" class="img_sample">
                 </div>
             </div>
+
         </div>
+
     </div>
 
 </body> 

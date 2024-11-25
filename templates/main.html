@@ -11,16 +11,19 @@
 </head>
 <body>
 
+    <!-- title -->
     <nav class="nav">
-        <div class="name_logo" style="display: flex; align-items: center;">
-          <a href="upload.html" class="title">Arbitrary Style Transfer</a>
+        <div style="display: flex; align-items: center;">
+          <a href="{{ url_for('introduce') }}" class="title">Arbitrary Style Transfer</a>
           <img src="../static/images/img4web/opacity_12056793.png" style="margin-left: 10px;" width="40px" height="35px">
         </div>
         <img src="../static/images/img4web/GitHub-Logo.png" class="gitlogo" width="65px" height="35px">
     </nav>
   
+    <!-- Let's get started -->
     <div id="typingEffect" style="font-size: 40px; text-align: center; height: 100px; font-family: Montserrat; margin-top: 50px; margin-bottom: 25px; font-weight: 600;"></div>
 
+    <!-- Direct to result page animation -->
     <div id="overlay" style="display: none;">
         <div class="container">
             <div class="📦"></div>
@@ -32,9 +35,14 @@
     </div>
     
     <form method="POST" enctype="multipart/form-data" class="main-container">
+
+        <!-- Upload frame -->
         <div class="upload-container">
 
+            <!-- Content frame -->
             <div class="box-with-name">
+
+                <!-- Content box -->
                 <p class="box-title">Content image</p>
                 <div class="image-box" id="content-dropzone">
                     <div class="image-container"></div> 
@@ -43,6 +51,7 @@
                     <p style="  margin-top: 10px; font-size: 16px; color: #6c757d; z-index: 2;">or drop here</p>
                 </div>
                 
+                <!-- Example content -->
                 <p style="font-family: Montserrat;  margin-top: 10px; font-size: 16px; color: #6c757d; z-index: 2;">You don't have image?</p>
 
                 <div class="image-gallery">
@@ -52,7 +61,10 @@
                 </div>
             </div>
 
+            <!-- Style frame -->
             <div class="box-with-name">
+
+                <!-- Style box -->
                 <p class="box-title">Style image</p>
                 <div class="image-box" id="style-dropzone">
                     <div class="image-container"></div> 
@@ -61,6 +73,7 @@
                     <p style="  margin-top: 10px; font-size: 16px; color: #6c757d; z-index: 2;">or drop here</p>
                 </div>
 
+                <!-- Example style -->
                 <p style="font-family: Montserrat;  margin-top: 10px; font-size: 16px; color: #6c757d; z-index: 2;">You don't have image?</p>
 
                 <div class="image-gallery">
@@ -72,9 +85,30 @@
             </div>
         </div>
 
-        <input type="submit" id="submit" style="display: none;">
-        <label for="submit" class="transfer-btn" id="transfer-btn">Apply Style Transfer</label>
+        <!-- Select method and transfer frame -->
+        <div class="control-panel">
+
+            <!-- Method selector -->
+            <div class="dropdown">
+                <div class="select" onclick="toggleMenu()">
+                    <span class="selected">AdaAttN</span>
+                    <div class="caret"></div>
+                </div>
         
+                <ul class="menu">
+                    <li class="active">AdaAttN</li>
+                    <li>AdaIN</li>
+                </ul>
+            </div>
+
+            <!-- Hidden input to hold selected method -->
+            <input type="hidden" name="method" id="method" value="AdaAttN">
+
+            <!-- Transfer button -->
+            <input type="submit" id="submit" style="display: none;">
+            <label for="submit" class="transfer-btn" id="transfer-btn">Apply Style Transfer</label>
+        </div>
+
     </form>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>

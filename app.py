@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, send_from_directory, jsonify
 import os
-from TransferModel.model import transfer
+from TransferModel.adaattn_model import adaattn_transfer
+from TransferModel.adain_model import adain_transfer
 from PIL import Image
 import io
 import base64
@@ -28,9 +29,17 @@ def main():
         file2 = request.files['content']
         
         if file1 and file2:
+            method = request.form['method']
+
+            if method == 'AdaIN':
+                transfer = adain_transfer
+            elif method == 'AdaAttN':
+                transfer = adaattn_transfer
+
             style_image = Image.open(io.BytesIO(file1.read())).convert('RGB')
             content_image = Image.open(io.BytesIO(file2.read())).convert('RGB')
             output_image = transfer(content_image, style_image)  # Gọi hàm style transfer
+            # output_image = content_image
 
             return render_template('result.html', content_image=img2str(content_image), style_image=img2str(style_image), output_image=img2str(output_image))
 
