@@ -5,7 +5,7 @@ from utils import *
 from hyper import CONTENT_IMAGE_FOLDER, STYLE_IMAGE_FOLDER
 
 global models
-models = None
+models = load_model()
 
 app = Flask(__name__)
 
@@ -58,5 +58,4 @@ def get_style_images():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    models = load_model()
     app.run(debug=True)
