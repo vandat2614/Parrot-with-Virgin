@@ -4,7 +4,6 @@ from PIL import Image
 from utils import *
 from hyper import CONTENT_IMAGE_FOLDER, STYLE_IMAGE_FOLDER
 
-global models
 
 app = Flask(__name__)
 
@@ -14,6 +13,7 @@ def introduce():
 
 @app.route('/main', methods=['GET', 'POST'])
 def main():
+    global models
     if request.method == 'POST':
         file1 = request.files['style']
         file2 = request.files['content']
