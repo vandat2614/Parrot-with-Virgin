@@ -1,17 +1,26 @@
 from flask import Flask, render_template, request, jsonify
 import os
-import io
 from PIL import Image
 from utils import *
 from hyper import CONTENT_IMAGE_FOLDER, STYLE_IMAGE_FOLDER
 
 app = Flask(__name__)
 
-# Khởi tạo models
-@app.before_request
-def initialize_models():
-    app.config['MODELS'] = load_model()
-    print("Models initialized successfully.")
+# Tạo hàm tạo ứng dụng Flask
+def create_app():
+    app = Flask(__name__)
+    app.config.from_mapping(
+        CONTENT_IMAGE_FOLDER=CONTENT_IMAGE_FOLDER,
+        STYLE_IMAGE_FOLDER=STYLE_IMAGE_FOLDER,
+    )
+
+    # Tải mô hình ngay khi ứng dụng được khởi tạo
+    app.config['models'] = load_model()
+
+    return app
+
+# Khởi tạo ứng dụng Flask
+app = create_app()
 
 @app.route('/')
 def introduce():
@@ -19,33 +28,22 @@ def introduce():
 
 @app.route('/main', methods=['GET', 'POST'])
 def main():
-    models = app.config.get('MODELS')
-    if models is None:
-        return "Models not initialized", 500
-
     if request.method == 'POST':
-        file1 = request.files.get('style')
-        file2 = request.files.get('content')
+        file1 = request.files['style']
+        file2 = request.files['content']
         
         if file1 and file2:
-            method = request.form.get('method')
-            if method in models:
-                try:
-                    style_image = Image.open(io.BytesIO(file1.read())).convert('RGB')
-                    content_image = Image.open(io.BytesIO(file2.read())).convert('RGB')
-                    style_tensor = models[method]['preprocess'](style_image)
-                    content_tensor = models[method]['preprocess'](content_image)
-                    output_tensor = models[method]['model'](content_tensor, style_tensor)
-                    output_image = tensor_to_pil(output_tensor[0])
+            method = request.form['method']
+            models = app.config['models']  # Lấy mô hình từ config của Flask
+            if method in models.keys():
+                style_image = Image.open(io.BytesIO(file1.read())).convert('RGB')
+                content_image = Image.open(io.BytesIO(file2.read())).convert('RGB')
+                style_tensor = models[method]['preprocess'](style_image)
+                content_tensor = models[method]['preprocess'](content_image)
+                output_tensor = models[method]['model'](content_tensor, style_tensor)
+                output_image = tensor_to_pil(output_tensor[0])
 
-                    return render_template(
-                        'result.html', 
-                        content_image=img2str(content_image), 
-                        style_image=img2str(style_image), 
-                        output_image=img2str(output_image)
-                    )
-                except Exception as e:
-                    return f"Error processing images: {str(e)}", 500
+                return render_template('result.html', content_image=img2str(content_image), style_image=img2str(style_image), output_image=img2str(output_image))
 
     return render_template('main.html')
 
