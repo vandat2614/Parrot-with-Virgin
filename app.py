@@ -13,13 +13,13 @@ def introduce():
 
 @app.route('/main', methods=['GET', 'POST'])
 def main():
+    global models
     if request.method == 'POST':
         file1 = request.files['style']
         file2 = request.files['content']
         
         if file1 and file2:
             method = request.form['method']
-            models = load_model()
             if method in models.keys():
                 style_image = Image.open(io.BytesIO(file1.read())).convert('RGB')
                 content_image = Image.open(io.BytesIO(file2.read())).convert('RGB')
@@ -57,4 +57,5 @@ def get_style_images():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
+    models = load_model()
     app.run(debug=True)
