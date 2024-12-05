@@ -1,6 +1,8 @@
+import os
 IMG_SIZE = 512
-CONTENT_IMAGE_FOLDER = 'static\images/content'
-STYLE_IMAGE_FOLDER = 'static\images\style'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CONTENT_IMAGE_FOLDER = os.path.join(BASE_DIR, 'static', 'images', 'content')
+STYLE_IMAGE_FOLDER = os.path.join(BASE_DIR, 'static', 'images', 'style')
 
 AdaAttN = 'AdaAttN'
 AdaAttN_encoder = 'TransferModel/AdaAttN/vgg_normalised.pth'
