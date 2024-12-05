@@ -48,7 +48,7 @@ def get_content_images():
 def get_style_images():
     try:
         images = [
-            f"/static/images/content/{img}" 
+            f"/static/images/style/{img}" 
             for img in os.listdir(STYLE_IMAGE_FOLDER) 
             if img.lower().endswith(('.png', '.jpg', '.jpeg', '.webp'))
         ]
