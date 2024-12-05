@@ -7,8 +7,8 @@ from hyper import *
 from torchvision import transforms
 import io
 import base64
-import tensorflow as tf
-import tensorflow_hub as hub
+# import tensorflow as tf
+# import tensorflow_hub as hub
 import numpy as np
 import PIL
 
@@ -23,12 +23,12 @@ def tensor_to_pil(image_tensor):
         image_tensor = torch.clamp(image_tensor, 0, 1) 
         return to_pil_image(image_tensor)
     
-    elif isinstance(image_tensor, tf.Tensor):
-        image_tensor = np.array(image_tensor*255, dtype=np.uint8)
-        if np.ndim(image_tensor)>3:
-            assert image_tensor.shape[0] == 1
-            image_tensor = image_tensor[0]
-        return PIL.Image.fromarray(image_tensor)
+    # elif isinstance(image_tensor, tf.Tensor):
+    #     image_tensor = np.array(image_tensor*255, dtype=np.uint8)
+    #     if np.ndim(image_tensor)>3:
+    #         assert image_tensor.shape[0] == 1
+    #         image_tensor = image_tensor[0]
+    #     return PIL.Image.fromarray(image_tensor)
 
 def resize_to_even(image, target_size):
     width, height = image.size
@@ -59,19 +59,19 @@ def adain_preprocess(img):
     transformed_img = transforms.ToTensor()(resized_img)
     return transformed_img.unsqueeze(0)
 
-def tf_preprocess(image):
-    img = np.array(image)
-    img = tf.convert_to_tensor(img, dtype=tf.float32)
-    img = img / 255.0 
+# def tf_preprocess(image):
+#     img = np.array(image)
+#     img = tf.convert_to_tensor(img, dtype=tf.float32)
+#     img = img / 255.0 
 
-    shape = tf.cast(tf.shape(img)[:-1], tf.float32)
-    long_dim = max(shape)
-    scale = IMG_SIZE / long_dim
-    new_shape = tf.cast(shape * scale, tf.int32)
+#     shape = tf.cast(tf.shape(img)[:-1], tf.float32)
+#     long_dim = max(shape)
+#     scale = IMG_SIZE / long_dim
+#     new_shape = tf.cast(shape * scale, tf.int32)
 
-    img = tf.image.resize(img, new_shape)
-    img = img[tf.newaxis, :]
-    return img
+#     img = tf.image.resize(img, new_shape)
+#     img = img[tf.newaxis, :]
+#     return img
 
 def load_model():
     return {
@@ -83,8 +83,8 @@ def load_model():
             'model' : AdaINModel(encoder_path=AdaIN_encoder, decoder_path=AdaIN_decoder),
             'preprocess' : adain_preprocess
             },
-        TFStyleTransfer : {
-            'model' : hub.load(TF_model),
-            'preprocess' : tf_preprocess
-        }
+        # TFStyleTransfer : {
+        #     'model' : hub.load(TF_model),
+        #     'preprocess' : tf_preprocess
+        # }
     }
