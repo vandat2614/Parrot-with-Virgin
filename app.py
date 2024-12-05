@@ -6,22 +6,6 @@ from hyper import CONTENT_IMAGE_FOLDER, STYLE_IMAGE_FOLDER
 
 app = Flask(__name__)
 
-# Tạo hàm tạo ứng dụng Flask
-def create_app():
-    app = Flask(__name__)
-    app.config.from_mapping(
-        CONTENT_IMAGE_FOLDER=CONTENT_IMAGE_FOLDER,
-        STYLE_IMAGE_FOLDER=STYLE_IMAGE_FOLDER,
-    )
-
-    # Tải mô hình ngay khi ứng dụng được khởi tạo
-    app.config['models'] = load_model()
-
-    return app
-
-# Khởi tạo ứng dụng Flask
-app = create_app()
-
 @app.route('/')
 def introduce():
     return render_template('introduce.html')
@@ -34,7 +18,7 @@ def main():
         
         if file1 and file2:
             method = request.form['method']
-            models = app.config['models']  # Lấy mô hình từ config của Flask
+            models = load_model()
             if method in models.keys():
                 style_image = Image.open(io.BytesIO(file1.read())).convert('RGB')
                 content_image = Image.open(io.BytesIO(file2.read())).convert('RGB')
