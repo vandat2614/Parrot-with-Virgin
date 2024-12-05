@@ -36,7 +36,7 @@ def main():
 def get_content_images():
     try:
         images = [
-            f"{CONTENT_IMAGE_FOLDER}/{img}" 
+            f"/static/images/content/{img}" 
             for img in os.listdir(CONTENT_IMAGE_FOLDER) 
             if img.lower().endswith(('.png', '.jpg', '.jpeg', '.webp'))
         ]
@@ -48,7 +48,7 @@ def get_content_images():
 def get_style_images():
     try:
         images = [
-            f"{STYLE_IMAGE_FOLDER}/{img}" 
+            f"/static/images/content/{img}" 
             for img in os.listdir(STYLE_IMAGE_FOLDER) 
             if img.lower().endswith(('.png', '.jpg', '.jpeg', '.webp'))
         ]
