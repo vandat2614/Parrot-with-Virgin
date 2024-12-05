@@ -8,7 +8,7 @@ from hyper import CONTENT_IMAGE_FOLDER, STYLE_IMAGE_FOLDER
 app = Flask(__name__)
 
 # Khởi tạo models
-@app.before_first_request
+@app.before_request
 def initialize_models():
     app.config['MODELS'] = load_model()
     print("Models initialized successfully.")
