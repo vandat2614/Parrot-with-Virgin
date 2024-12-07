@@ -295,6 +295,8 @@ class AdaAttNModel(nn.Module):
             return mean_variance_norm(feats[last_layer_idx])
 
     def forward(self, content_img, style_img):
+        content_img = content_img.to(self.device)
+        style_img = style_img.to(self.device)
 
         with ThreadPoolExecutor() as executor:
             future_c_feats = executor.submit(self.encode_with_intermediate, content_img)
