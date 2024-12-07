@@ -47,7 +47,9 @@ def process_images(content_dir, style_dir, method, size):
             # Save the output image
             output_name = f"{os.path.splitext(content_image_name)[0]}_{os.path.splitext(style_image_name)[0]}.png"
             output_path = os.path.join(output_dir, output_name)
+
             save_image(output_image, output_path)
+            print(f'Save {output_path}')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Style Transfer Script")
