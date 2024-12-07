@@ -11,7 +11,7 @@ AdaAttN_adattn_3 = 'TransferModel\AdaAttN\latest_net_adaattn_3.pth'
 AdaAttN_adattn_4_5 = 'TransferModel\AdaAttN\latest_net_transformer.pth'
 
 AdaIN = 'AdaIN'
-AdaIN_encoder = 'TransferModel\AdaIN/vgg_normalised.pth'
+AdaIN_encoder = AdaAttN_encoder
 AdaIN_decoder = 'TransferModel\AdaIN/adain_decoder.pth'
 
 TFStyleTransfer = 'TF-StyleTransfer'

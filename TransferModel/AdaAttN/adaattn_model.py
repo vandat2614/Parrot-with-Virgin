@@ -170,6 +170,8 @@ class AdaAttNModel(nn.Module):
     def __init__(self, encoder_path, decoder_path, adaattn_3_path, adaattn_4_5_path):
         super(AdaAttNModel, self).__init__()
 
+        self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
+
         image_encoder = nn.Sequential(
             nn.Conv2d(3, 3, (1, 1)),
             nn.ReflectionPad2d((1, 1, 1, 1)),
@@ -225,13 +227,15 @@ class AdaAttNModel(nn.Module):
             nn.Conv2d(512, 512, (3, 3)),
             nn.ReLU()  # relu5-4
         )
+
+        
         image_encoder.load_state_dict(torch.load(encoder_path, weights_only=True))
         enc_layers = list(image_encoder.children())
-        enc_1 = nn.Sequential(*enc_layers[:4]) 
-        enc_2 = nn.Sequential(*enc_layers[4:11])
-        enc_3 = nn.Sequential(*enc_layers[11:18])
-        enc_4 = nn.Sequential(*enc_layers[18:31])
-        enc_5 = nn.Sequential(*enc_layers[31:44])
+        enc_1 = nn.Sequential(*enc_layers[:4]).to(self.device)
+        enc_2 = nn.Sequential(*enc_layers[4:11]).to(self.device)
+        enc_3 = nn.Sequential(*enc_layers[11:18]).to(self.device)
+        enc_4 = nn.Sequential(*enc_layers[18:31]).to(self.device)
+        enc_5 = nn.Sequential(*enc_layers[31:44]).to(self.device)
 
         self.image_encoder_layers = [enc_1, enc_2, enc_3, enc_4, enc_5]
         for layer in self.image_encoder_layers:
@@ -246,15 +250,15 @@ class AdaAttNModel(nn.Module):
         self.max_sample = 64 * 64
 
         adaattn_3 = AdaAttN(in_planes=256, key_planes=256 + 128 + 64, max_sample=self.max_sample)
-        self.net_adaattn_3 = init_net(adaattn_3)
+        self.net_adaattn_3 = init_net(adaattn_3).to(self.device)
         self.model_names.append('adaattn_3')
         parameters.append(self.net_adaattn_3.parameters())
 
         channels = 512 + 256 + 128 + 64
         transformer = Transformer(in_planes=512, key_planes=channels, shallow_layer=True)
         decoder = Decoder(True)
-        self.net_decoder = init_net(decoder)
-        self.net_transformer = init_net(transformer)
+        self.net_decoder = init_net(decoder).to(self.device)
+        self.net_transformer = init_net(transformer).to(self.device)
         parameters.append(self.net_decoder.parameters())
         parameters.append(self.net_transformer.parameters())
 
