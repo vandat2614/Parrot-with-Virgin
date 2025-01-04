@@ -82,9 +82,5 @@ def load_model():
         AdaIN : {
             'model' : AdaINModel(encoder_path=AdaIN_encoder, decoder_path=AdaIN_decoder),
             'preprocess' : adain_preprocess
-            },
-        # TFStyleTransfer : {
-        #     'model' : hub.load(TF_model),
-        #     'preprocess' : tf_preprocess
-        # }
+            }
     }

@@ -14,5 +14,5 @@ AdaIN = 'AdaIN'
 AdaIN_encoder = AdaAttN_encoder
 AdaIN_decoder = 'TransferModel/AdaIN/adain_decoder.pth'
 
-TFStyleTransfer = 'TF-StyleTransfer'
-TF_model = 'https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2'
+# TFStyleTransfer = 'TF-StyleTransfer'
+# TF_model = 'https://kaggle.com/models/google/arbitrary-image-stylization-v1/TensorFlow1/256/1'
